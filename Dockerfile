@@ -14,6 +14,7 @@ RUN microdnf --nodocs -y upgrade && \
     tar \
     tzdata \
     netcat \
+    python3-pip \
     wget && \
     microdnf --nodocs -y reinstall tzdata && \
     microdnf clean all
