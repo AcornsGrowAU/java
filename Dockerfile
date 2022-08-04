@@ -6,14 +6,17 @@ ARG JAVA_VERSION=11
 
 RUN microdnf --nodocs -y upgrade && \
     microdnf --nodocs -y install \
+    apache-commons-codec \
     gettext \
     java-${JAVA_VERSION}-openjdk-devel \
     postgresql \
     postgresql-jdbc \
     mariadb \
+    snakeyaml \
     tar \
     tzdata \
     netcat \
+    vim \
     wget && \
     microdnf --nodocs -y reinstall tzdata && \
     microdnf clean all
@@ -21,6 +24,3 @@ RUN microdnf --nodocs -y upgrade && \
 ONBUILD ARG UID=1000
 ONBUILD RUN useradd -d /java -l -m -Uu ${UID} -r -s /bin/bash java && \
   chown -R ${UID}:${UID} /java
-
-ONBUILD USER ${UID}:${UID}
-ONBUILD ENV JAVA_OPTS='-Djava.net.preferIPv4Stack=true -Xmx1024m -Xms1024m'
